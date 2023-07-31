@@ -6,12 +6,12 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="contents.html" />
 <meta property="og:site_name" content="sctk" />
-<meta property="og:description" content="Table of Contents: Single Cell analysis Tool Kit, API Reference- QC pipeline.." />
+<meta property="og:description" content="Table of Contents: Single Cell analysis Tool Kit, Automatic QC workflow tutorial, API Reference- QC pipeline.." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_contents_0509793f.png" />
-<meta property="og:image:alt" content="Table of Contents: Single Cell analysis Tool Kit, API Reference- QC pipeline.." />
-<meta name="description" content="Table of Contents: Single Cell analysis Tool Kit, API Reference- QC pipeline.." />
+<meta property="og:image" content="/_images/social_previews/summary_contents_95d42083.png" />
+<meta property="og:image:alt" content="Table of Contents: Single Cell analysis Tool Kit, Automatic QC workflow tutorial, API Reference- QC pipeline.." />
+<meta name="description" content="Table of Contents: Single Cell analysis Tool Kit, Automatic QC workflow tutorial, API Reference- QC pipeline.." />
 <meta name="twitter:card" content="summary_large_image" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +30,7 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/design-tabs.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -58,6 +59,7 @@
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Single Cell analysis Tool Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/automatic_qc.html">Automatic QC workflow tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
@@ -85,10 +87,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="toctree-wrapper compound">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Single Cell analysis Tool Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/automatic_qc.html">Automatic QC workflow tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-sctk">QC pipeline</a></li>
 </ul>
