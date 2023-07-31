@@ -6,12 +6,12 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="api.html" />
 <meta property="og:site_name" content="sctk" />
-<meta property="og:description" content="_pipeline.py: QC pipeline: High-level pipeline functions" />
+<meta property="og:description" content="QC pipeline: Provides exported functions High-level pipeline functions" />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_api_41ea3f7e.png" />
-<meta property="og:image:alt" content="_pipeline.py: QC pipeline: High-level pipeline functions" />
-<meta name="description" content="_pipeline.py: QC pipeline: High-level pipeline functions" />
+<meta property="og:image" content="/_images/social_previews/summary_api_42b27e85.png" />
+<meta property="og:image:alt" content="QC pipeline: Provides exported functions High-level pipeline functions" />
+<meta name="description" content="QC pipeline: Provides exported functions High-level pipeline functions" />
 <meta name="twitter:card" content="summary_large_image" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,7 +59,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Single Cell analysis Tool Kit</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-sctk._pipeline"><code class="docutils literal notranslate"><span class="pre">_pipeline.py</span></code>: QC pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sctk">QC pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -90,86 +90,12 @@
              
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
-<section id="module-sctk._pipeline">
-<span id="pipeline-py-qc-pipeline"></span><h2><code class="docutils literal notranslate"><span class="pre">_pipeline.py</span></code>: QC pipeline<a class="headerlink" href="#module-sctk._pipeline" title="Permalink to this heading"></a></h2>
-<p>High-level pipeline functions</p>
-<dl class="py exception">
-<dt class="sig sig-object py" id="sctk._pipeline.QcLowPassError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">QcLowPassError</span></span><a class="headerlink" href="#sctk._pipeline.QcLowPassError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
-<p>Error raised when a QC minimum requirements are not met for a dataset.</p>
-</dd></dl>
-
+<section id="module-sctk">
+<span id="qc-pipeline"></span><h2>QC pipeline<a class="headerlink" href="#module-sctk" title="Permalink to this heading"></a></h2>
+<p>Provides exported functions</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.auto_filter_cells">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">auto_filter_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_gene</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'max_mito':</span> <span class="pre">20,</span> <span class="pre">'metrics':</span> <span class="pre">['n_counts',</span> <span class="pre">'n_genes',</span> <span class="pre">'percent_mito'],</span> <span class="pre">'min_count':</span> <span class="pre">1000,</span> <span class="pre">'min_gene':</span> <span class="pre">200,</span> <span class="pre">'min_pass_rate':</span> <span class="pre">0.5,</span> <span class="pre">'onesided':</span> <span class="pre">True}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk._pipeline.auto_filter_cells" title="Permalink to this definition"></a></dt>
-<dd><p>Automatically filter cells in an AnnData object based on quality control
-metrics.</p>
-<p>This function automatically filters cells in an AnnData object based on
-quality control metrics using a simple iterative algorithm. The algorithm
-first applies a set of default filters to the data using the
-<cite>simple_default_pipeline</cite> function, and then iteratively adjusts the filter
-parameters until a minimum passing rate is achieved for each metric. The
-resulting filtered AnnData object is returned with a new categorical
-variable indicating which cells passed the filters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ad</strong> (<em>anndata.AnnData</em>) – AnnData object to filter cells in.</p></li>
-<li><p><strong>min_count</strong> (<em>int</em>) – Minimum number of counts per cell to retain. Default is 250.</p></li>
-<li><p><strong>min_gene</strong> (<em>int</em>) – Minimum number of genes per cell to retain. Default is 50.</p></li>
-<li><p><strong>subset</strong> (<em>bool</em>) – Whether to return a subset of the original AnnData object
-containing only the passing cells. Default is True.</p></li>
-<li><p><strong>filter_kw</strong> (<em>dict</em>) – Dictionary of keyword arguments to pass to the
-<a class="reference internal" href="#sctk._pipeline.simple_default_pipeline" title="sctk._pipeline.simple_default_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">simple_default_pipeline()</span></code></a> function. Default is a set of
-default filter parameters.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>If <cite>subset</cite> is True, a new AnnData object containing only the passing
-cells. Otherwise, the original AnnData object with a new categorical
-variable indicating which cells passed the filters.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#sctk._pipeline.QcLowPassError" title="sctk._pipeline.QcLowPassError"><strong>QcLowPassError</strong></a> – If dataset does not pass minimum specifications.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.auto_zoom_in">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">auto_zoom_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leiden_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'max_next_frac':</span> <span class="pre">0.3}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sctk._pipeline.auto_zoom_in" title="Permalink to this definition"></a></dt>
-<dd><p>Automatically zooms in on subclusters in an AnnData object.</p>
-<p>This function performs iterative clustering on an AnnData object using the
-Leiden algorithm, starting from a specified categorical variable and
-splitting each group into subclusters until no further subclustering is
-possible. The resulting subclusters are added to the original AnnData object
-as new categorical variables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ad</strong> – AnnData object to cluster.</p></li>
-<li><p><strong>use_graph</strong> – Name of the graph to use for clustering.</p></li>
-<li><p><strong>groupby</strong> – Name of the categorical variable to start clustering from.</p></li>
-<li><p><strong>restrict_to</strong> – Optional list of group names to restrict clustering to.</p></li>
-<li><p><strong>start_index</strong> – Index to start numbering new categorical variables from.</p></li>
-<li><p><strong>min_res</strong> – Minimum clustering resolution to use.</p></li>
-<li><p><strong>max_res</strong> – Maximum clustering resolution to use.</p></li>
-<li><p><strong>leiden_kw</strong> – Additional keyword arguments to pass to the <cite>leiden</cite>
-function.</p></li>
-<li><p><strong>marker_kw</strong> – Additional keyword arguments to pass to the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">filter_marker_stats()</span></code> function.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.calculate_qc">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">calculate_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'hb':</span> <span class="pre">'^HB',</span> <span class="pre">'mito':</span> <span class="pre">'^MT-',</span> <span class="pre">'ribo':</span> <span class="pre">'^RP[LS]'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sctk._pipeline.calculate_qc" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="sctk.calculate_qc">
+<span class="sig-prename descclassname"><span class="pre">sctk.</span></span><span class="sig-name descname"><span class="pre">calculate_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'hb':</span> <span class="pre">'^HB',</span> <span class="pre">'mito':</span> <span class="pre">'^MT-',</span> <span class="pre">'ribo':</span> <span class="pre">'^RP[LS]'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sctk.calculate_qc" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate quality control (QC) metrics for an AnnData object. The object is
 modified in-place.</p>
 <dl class="field-list simple">
@@ -203,8 +129,8 @@ metrics.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.cellwise_qc">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">cellwise_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_qc_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cell_passed_qc'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sctk._pipeline.cellwise_qc" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="sctk.cellwise_qc">
+<span class="sig-prename descclassname"><span class="pre">sctk.</span></span><span class="sig-name descname"><span class="pre">cellwise_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_qc_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cell_passed_qc'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sctk.cellwise_qc" title="Permalink to this definition"></a></dt>
 <dd><p>Filter cells in an AnnData object based on quality control metrics. The
 object is modified in-place.</p>
 <p>This function filters cells in an AnnData object based on quality control
@@ -222,7 +148,7 @@ uses a set of default metrics. For defaults and an explanation, please
 refer to the QC workflow demo notebook.</p></li>
 <li><p><strong>cell_qc_key</strong> – Obs column in the object to store the per-cell QC calls in.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
-<a class="reference internal" href="#sctk._pipeline.fit_gaussian" title="sctk._pipeline.fit_gaussian"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit_gaussian()</span></code></a> function.</p></li>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">fit_gaussian()</span></code> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -244,8 +170,8 @@ refer to the QC workflow demo notebook.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.clusterwise_qc">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">clusterwise_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_qc_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cell_passed_qc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cluster_passed_qc'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sctk._pipeline.clusterwise_qc" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="sctk.clusterwise_qc">
+<span class="sig-prename descclassname"><span class="pre">sctk.</span></span><span class="sig-name descname"><span class="pre">clusterwise_qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_qc_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cell_passed_qc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cluster_passed_qc'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sctk.clusterwise_qc" title="Permalink to this definition"></a></dt>
 <dd><p>Find good quality control (QC) clusters in an AnnData object.</p>
 <p>This function finds good quality control (QC) clusters in an AnnData object
 by identifying clusters that have a high proportion of cells that pass the
@@ -283,184 +209,8 @@ AnnData.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.crossmap">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">crossmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dataset'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'annot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sctk._pipeline.crossmap" title="Permalink to this definition"></a></dt>
-<dd><p>Cross-maps annotations between two datasets in an AnnData object.</p>
-<p>This function cross-maps annotations between two datasets in an AnnData
-object by first training a logistic regression model on each dataset, and
-then using the models to predict the annotations in the other dataset. The
-resulting cross-mapped annotations are added to the original AnnData object
-as new categorical variables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> – AnnData object to cross-map annotations in.</p></li>
-<li><p><strong>dataset</strong> – Name of the categorical variable to group cells by. Default is
-“dataset”.</p></li>
-<li><p><strong>annotation</strong> – Name of the categorical variable to cross-map. Default is
-“annot”.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>If the annotations have already been cross-mapped, a pandas DataFrame
-containing the cross-tabulated annotations. Otherwise, a tuple
-containing the cross-tabulated annotations, the preprocessed AnnData
-objects used for training the logistic regression models, and the
-trained models themselves.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.custom_pipeline">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">custom_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'max_counts':</span> <span class="pre">25000,</span> <span class="pre">'max_mito':</span> <span class="pre">20,</span> <span class="pre">'min_cells':</span> <span class="pre">3,</span> <span class="pre">'min_genes':</span> <span class="pre">200,</span> <span class="pre">'min_mito':</span> <span class="pre">0}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'fraction':</span> <span class="pre">0.9,</span> <span class="pre">'target_sum':</span> <span class="pre">10000.0}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combat_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'key':</span> <span class="pre">None}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'by_batch':</span> <span class="pre">None,</span> <span class="pre">'flavor':</span> <span class="pre">'seurat'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'max_value':</span> <span class="pre">10}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_comps':</span> <span class="pre">50,</span> <span class="pre">'svd_solver':</span> <span class="pre">'arpack',</span> <span class="pre">'use_highly_variable':</span> <span class="pre">True}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">harmony_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'batch':</span> <span class="pre">None,</span> <span class="pre">'theta':</span> <span class="pre">2.0}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_neighbors':</span> <span class="pre">15,</span> <span class="pre">'n_pcs':</span> <span class="pre">20}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">umap_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tsne_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffmap_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_comps':</span> <span class="pre">15}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leiden_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'resolution':</span> <span class="pre">[0.1,</span> <span class="pre">0.2,</span> <span class="pre">0.3,</span> <span class="pre">0.4,</span> <span class="pre">0.5,</span> <span class="pre">0.6,</span> <span class="pre">0.7,</span> <span class="pre">0.8,</span> <span class="pre">0.9,</span> <span class="pre">1.0]}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fdg_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'layout':</span> <span class="pre">'fa'}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk._pipeline.custom_pipeline" title="Permalink to this definition"></a></dt>
-<dd><p>Applies a custom Scanpy pipeline to an AnnData object.</p>
-<p>This function applies a custom Scanpy pipeline to an AnnData object, which
-includes filtering, normalization, batch correction, highly variable gene
-selection, dimensionality reduction, clustering, and visualization. The
-pipeline can be customized by passing various keyword arguments to the
-function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> – AnnData object to apply the pipeline to.</p></li>
-<li><p><strong>qc_only</strong> – If True, only perform quality control and skip the rest of the
-pipeline.</p></li>
-<li><p><strong>plot</strong> – If True, generate plots of the pipeline results.</p></li>
-<li><p><strong>batch</strong> – Categorical variable to correct for batch effects.</p></li>
-<li><p><strong>filter_params</strong> – Dictionary of filtering parameters to pass to the
-<cite>sc.pp.filter_cells</cite> and <cite>sc.pp.filter_genes</cite> functions.</p></li>
-<li><p><strong>norm_params</strong> – Dictionary of normalization parameters to pass to the
-<cite>sc.pp.normalize_total</cite> function.</p></li>
-<li><p><strong>combat_args</strong> – Dictionary of batch correction parameters to pass to the
-<cite>sc.pp.combat</cite> function.</p></li>
-<li><p><strong>hvg_params</strong> – Dictionary of highly variable gene selection parameters to
-pass to the <cite>hvg</cite> function.</p></li>
-<li><p><strong>scale_params</strong> – Dictionary of scaling parameters to pass to the
-<cite>sc.pp.scale</cite> function.</p></li>
-<li><p><strong>pca_params</strong> – Dictionary of PCA parameters to pass to the <cite>pca</cite> function.</p></li>
-<li><p><strong>harmony_params</strong> – Dictionary of Harmony parameters to pass to the
-<cite>run_harmony</cite> function.</p></li>
-<li><p><strong>nb_params</strong> – Dictionary of nearest neighbor parameters to pass to the
-<cite>neighbors</cite> function.</p></li>
-<li><p><strong>umap_params</strong> – Dictionary of UMAP parameters to pass to the <cite>umap</cite>
-function.</p></li>
-<li><p><strong>tsne_params</strong> – Dictionary of t-SNE parameters to pass to the <cite>tsne</cite>
-function.</p></li>
-<li><p><strong>diffmap_params</strong> – Dictionary of diffusion map parameters to pass to the
-<cite>diffmap</cite> function.</p></li>
-<li><p><strong>leiden_params</strong> – Dictionary of Leiden clustering parameters to pass to the
-<cite>leiden</cite> function.</p></li>
-<li><p><strong>fdg_params</strong> – Dictionary of force-directed graph parameters to pass to the
-<cite>fdg</cite> function.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The modified AnnData object.</p>
-</dd>
-</dl>
-<p>TODO some functions return a modified anndata object, some modify in place</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.filter_qc_outlier_legacy">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">filter_qc_outlier_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['n_counts',</span> <span class="pre">'n_genes',</span> <span class="pre">'percent_mito',</span> <span class="pre">'percent_ribo',</span> <span class="pre">'percent_hb',</span> <span class="pre">'percent_top50']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_gene</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mito</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_mito</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_ribo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ribo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_top50</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_top50</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_pass_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onesided</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#sctk._pipeline.filter_qc_outlier_legacy" title="Permalink to this definition"></a></dt>
-<dd><p>Filter out cells with outlier QC metrics.</p>
-<p>This function filters out cells with outlier QC metrics based on a set of
-predefined thresholds. The function takes an AnnData object as input and
-returns a boolean array indicating which cells pass the QC filter.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> – AnnData object to filter.</p></li>
-<li><p><strong>metrics</strong> – List of QC metrics to use for filtering.</p></li>
-<li><p><strong>min_count</strong> – Minimum number of counts per cell.</p></li>
-<li><p><strong>min_gene</strong> – Minimum number of genes per cell.</p></li>
-<li><p><strong>min_mito</strong> – Minimum percentage of mitochondrial genes per cell.</p></li>
-<li><p><strong>max_mito</strong> – Maximum percentage of mitochondrial genes per cell.</p></li>
-<li><p><strong>min_ribo</strong> – Minimum percentage of ribosomal genes per cell.</p></li>
-<li><p><strong>max_ribo</strong> – Maximum percentage of ribosomal genes per cell.</p></li>
-<li><p><strong>max_hb</strong> – Maximum percentage of hemoglobin genes per cell.</p></li>
-<li><p><strong>min_top50</strong> – Minimum percentage of reads mapping to the top 50 genes.</p></li>
-<li><p><strong>max_top50</strong> – Maximum percentage of reads mapping to the top 50 genes.</p></li>
-<li><p><strong>min_pass_rate</strong> – Minimum pass rate for the QC filter.</p></li>
-<li><p><strong>onesided</strong> – Whether to use a one-sided or two-sided threshold for count
-and gene metrics.</p></li>
-<li><p><strong>force</strong> – Whether to force the function to pass even if the pass rate is
-below the minimum threshold.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Boolean array indicating which cells pass the QC filter.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#sctk._pipeline.QcLowPassError" title="sctk._pipeline.QcLowPassError"><strong>QcLowPassError</strong></a> – If the pass rate for a given metric is below the minimum
-    threshold and force is False.</p>
-</dd>
-</dl>
-<dl>
-<dt>Examples: TODO check</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">pbmc3k</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;highly_variable&quot;</span><span class="p">]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">use_highly_variable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">k_pass</span> <span class="o">=</span> <span class="n">filter_qc_outlier_legacy</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.fit_gaussian">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">fit_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hist_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#sctk._pipeline.fit_gaussian" title="Permalink to this definition"></a></dt>
-<dd><p>Fit a Gaussian mixture model to a 1D numpy array.</p>
-<p>This function fits a Gaussian mixture model to a 1D numpy array using the
-specified number of components and threshold. It returns the lower and upper
-bounds of the fitted Gaussian distribution, as well as the fitted Gaussian
-mixture model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – 1D numpy array to fit a Gaussian mixture model to.</p></li>
-<li><p><strong>n_components</strong> – Number of components to use for the Gaussian mixture model.
-The best GMM will be selected based on BIC.</p></li>
-<li><p><strong>threshold</strong> – Threshold value for determining the lower and upper bounds of
-the fitted Gaussian distribution.</p></li>
-<li><p><strong>xmin</strong> – Minimum value to use for the fitted Gaussian distribution. If not
-provided, this will be set to the minimum value of <cite>x</cite>.</p></li>
-<li><p><strong>xmax</strong> – Maximum value to use for the fitted Gaussian distribution. If not
-provided, this will be set to the maximum value of <cite>x</cite>.</p></li>
-<li><p><strong>plot</strong> – If True, plot the fitted Gaussian distribution.</p></li>
-<li><p><strong>nbins</strong> – Number of bins to use for the distribution of <cite>x</cite>.</p></li>
-<li><p><strong>hist_bins</strong> – Number of bins to use for the histogram of <cite>x</cite> in the plot.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple containing the lower bound, upper bound, and Gaussian mixture
-model.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None.</strong> – </p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sctk</span> <span class="kn">import</span> <span class="n">fit_gaussian</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">,</span> <span class="n">gmm</span> <span class="o">=</span> <span class="n">fit_gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.generate_qc_clusters">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">generate_qc_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_ad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk._pipeline.generate_qc_clusters" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="sctk.generate_qc_clusters">
+<span class="sig-prename descclassname"><span class="pre">sctk.</span></span><span class="sig-name descname"><span class="pre">generate_qc_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_ad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk.generate_qc_clusters" title="Permalink to this definition"></a></dt>
 <dd><p>Generate quality control (QC) clusters for an AnnData object. The object is
 modified in-place.</p>
 <p>This function generates QC clusters for an AnnData object using the
@@ -506,191 +256,47 @@ AnnData object used for generating QC clusters.</p>
 </div>
 </dd></dl>
 
+<span class="target" id="module-sctk._pipeline"></span><p>High-level pipeline functions</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.get_good_sized_batch">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">get_good_sized_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#sctk._pipeline.get_good_sized_batch" title="Permalink to this definition"></a></dt>
-<dd><p>Get a list of batches with a minimum size.</p>
-<p>This function takes a pandas Series of batch IDs and their corresponding
-sizes and returns a list of batch IDs that have a size greater than or equal
-to the specified minimum size.</p>
+<dt class="sig sig-object py" id="sctk._pipeline.fit_gaussian">
+<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">fit_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hist_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#sctk._pipeline.fit_gaussian" title="Permalink to this definition"></a></dt>
+<dd><p>Fit a Gaussian mixture model to a 1D numpy array.</p>
+<p>This function fits a Gaussian mixture model to a 1D numpy array using the
+specified number of components and threshold. It returns the lower and upper
+bounds of the fitted Gaussian distribution, as well as the fitted Gaussian
+mixture model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>batches</strong> – Pandas Series of batch IDs and their corresponding sizes.</p></li>
-<li><p><strong>min_size</strong> – Minimum size of batches to include in the output list. Default
-is 10.</p></li>
+<li><p><strong>x</strong> – 1D numpy array to fit a Gaussian mixture model to.</p></li>
+<li><p><strong>n_components</strong> – Number of components to use for the Gaussian mixture model.
+The best GMM will be selected based on BIC.</p></li>
+<li><p><strong>threshold</strong> – Threshold value for determining the lower and upper bounds of
+the fitted Gaussian distribution.</p></li>
+<li><p><strong>xmin</strong> – Minimum value to use for the fitted Gaussian distribution. If not
+provided, this will be set to the minimum value of <cite>x</cite>.</p></li>
+<li><p><strong>xmax</strong> – Maximum value to use for the fitted Gaussian distribution. If not
+provided, this will be set to the maximum value of <cite>x</cite>.</p></li>
+<li><p><strong>plot</strong> – If True, plot the fitted Gaussian distribution.</p></li>
+<li><p><strong>nbins</strong> – Number of bins to use for the distribution of <cite>x</cite>.</p></li>
+<li><p><strong>hist_bins</strong> – Number of bins to use for the histogram of <cite>x</cite> in the plot.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of batch IDs with a size greater than or equal to <cite>min_size</cite>.</p>
+<dd class="field-even"><p>Tuple containing the lower bound, upper bound, and Gaussian mixture
+model.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None.</strong> – </p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.integrate">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_prefices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hvg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sctk._pipeline.integrate" title="Permalink to this definition"></a></dt>
-<dd><p>Integrates multiple AnnData objects into a single object.</p>
-<p>This function integrates multiple AnnData objects into a single object by
-first normalizing and preprocessing each object, and then concatenating them
-using the <cite>concatenate</cite> function. The resulting object can be used for
-downstream analysis, such as clustering and visualization.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ads</strong> – List of AnnData objects to integrate.</p></li>
-<li><p><strong>ad_prefices</strong> – List of prefixes to use for the batch categories in the
-concatenated object. If not provided, uses integers starting from 0.</p></li>
-<li><p><strong>ad_types</strong> – List of types to use for each AnnData object. If not provided,
-attempts to automatically determine the type of each object.</p></li>
-<li><p><strong>annotations</strong> – List of annotation columns to use for each AnnData object.
-If not provided, uses the default “annot” column.</p></li>
-<li><p><strong>batches</strong> – List of batch columns to use for each AnnData object. If not
-provided, uses the default “batch” column.</p></li>
-<li><p><strong>join</strong> – Method to use for joining the AnnData objects. Can be “inner”
-(default) or “outer”.</p></li>
-<li><p><strong>n_hvg</strong> – Number of highly variable genes to select for each batch.</p></li>
-<li><p><strong>pool_only</strong> – If True, returns the concatenated object without performing
-downstream analysis.</p></li>
-<li><p><strong>normalize</strong> – If True, normalizes the expression data in each AnnData
-object before concatenating.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>If <cite>pool_only</cite> is True, the concatenated AnnData object. Otherwise, the
-preprocessed and analysed concatenated AnnData object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.recluster_subset">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">recluster_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sctk._pipeline.recluster_subset" title="Permalink to this definition"></a></dt>
-<dd><p>Reclusters a subset of cells in an AnnData object.</p>
-<p>This function reclusters a subset of cells in an AnnData object by first
-filtering, normalizing, and performing PCA on the subset, and then
-performing clustering using the Leiden algorithm. The resulting clusters are
-added to the original AnnData object as a new categorical variable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> – AnnData object to recluster.</p></li>
-<li><p><strong>groupby</strong> – Categorical variable to group cells by.</p></li>
-<li><p><strong>groups</strong> – List of group names to recluster.</p></li>
-<li><p><strong>res</strong> – Clustering resolution to use for Leiden clustering.</p></li>
-<li><p><strong>new_key</strong> – Name of the new categorical variable to add to the AnnData
-object.</p></li>
-<li><p><strong>ad_aux</strong> – Optional preprocessed AnnData object to use for clustering.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
-<a class="reference internal" href="#sctk._pipeline.simple_default_pipeline" title="sctk._pipeline.simple_default_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">simple_default_pipeline()</span></code></a> function.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>If <cite>ad_aux</cite> is not provided, the preprocessed AnnData object used for
-clustering. Otherwise, None.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.save_pipeline_object">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">save_pipeline_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsm_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uns_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk._pipeline.save_pipeline_object" title="Permalink to this definition"></a></dt>
-<dd><p>Saves a processed AnnData object to a file.</p>
-<p>This function saves a processed AnnData object to a file, after removing
-certain keys from the <cite>obs</cite>, <cite>obsm</cite>, and <cite>uns</cite> attributes of the object. The
-specific keys to remove depend on the <cite>batch_method</cite> argument, which can be
-set to “harmony”, “bbknn”, or None. If <cite>batch_method</cite> is None, the default
-keys to remove are [“leiden_r0_1”, “leiden_r0_3”, “leiden_r0_5”,
-“leiden_r0_7”, “leiden_r0_9”] and [“X_pca”]. If <cite>batch_method</cite> is “harmony”,
-the keys to remove are [“leiden_hm_r0_1”, “leiden_hm_r0_3”,
-“leiden_hm_r0_5”, “leiden_hm_r0_7”, “leiden_hm_r0_9”], [“X_pca”], and
-[“X_pca_hm”, “neighbors”]. If <cite>batch_method</cite> is “bbknn”, the keys to remove
-are [“leiden_bk_r0_1”, “leiden_bk_r0_3”, “leiden_bk_r0_5”, “leiden_bk_r0_7”,
-“leiden_bk_r0_9”], [“X_pca”], and [“X_pca_bk”, “neighbors”].</p>
-<p>TODO is this very custom with respect to the keys, or widely used?</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ad</strong> – AnnData object to save.</p></li>
-<li><p><strong>out_prefix</strong> – Prefix for the output file name. If None, no file is saved.</p></li>
-<li><p><strong>batch_method</strong> – Batch correction method used to process the AnnData
-object. Can be “harmony”, “bbknn”, or None.</p></li>
-<li><p><strong>obs_keys</strong> – List of keys to remove from the <cite>obs</cite> attribute of the AnnData
-object.</p></li>
-<li><p><strong>obsm_keys</strong> – List of keys to remove from the <cite>obsm</cite> attribute of the
-AnnData object.</p></li>
-<li><p><strong>uns_keys</strong> – List of keys to remove from the <cite>uns</cite> attribute of the AnnData
-object.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The processed AnnData object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sctk._pipeline.simple_default_pipeline">
-<span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">simple_default_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_filter_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_norm_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_hvg_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_pca_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_clustering</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_combat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'harmony'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.3,</span> <span class="pre">0.5,</span> <span class="pre">0.7,</span> <span class="pre">0.9]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_hvg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgs_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">umap_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hm_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bk_kw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AnnData</span></span></span><a class="headerlink" href="#sctk._pipeline.simple_default_pipeline" title="Permalink to this definition"></a></dt>
-<dd><p>Applies a default preprocessing pipeline to the input AnnData object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>adata</strong> – AnnData object to preprocess.</p></li>
-<li><p><strong>filter_only</strong> – If True, only performs filtering steps and returns the
-filtered AnnData object.</p></li>
-<li><p><strong>post_filter_only</strong> – If True, only performs post-filtering steps and
-returns the processed AnnData object.</p></li>
-<li><p><strong>norm_only</strong> – If True, only performs normalization steps and returns the
-normalized AnnData object.</p></li>
-<li><p><strong>post_norm_only</strong> – If True, only performs post-normalization steps and
-returns the processed AnnData object.</p></li>
-<li><p><strong>hvg_only</strong> – If True, only performs highly variable gene selection and
-returns the selected AnnData object.</p></li>
-<li><p><strong>post_hvg_only</strong> – If True, only performs post-highly variable gene
-selection steps and returns the processed AnnData object.</p></li>
-<li><p><strong>pca_only</strong> – If True, only performs PCA and returns the PCA-transformed
-AnnData object.</p></li>
-<li><p><strong>post_pca_only</strong> – If True, only performs post-PCA steps and returns the
-processed AnnData object.</p></li>
-<li><p><strong>do_clustering</strong> – If True, performs clustering and updates the AnnData
-object with the clustering results.</p></li>
-<li><p><strong>zero_center</strong> – If True, centers the data to zero mean before scaling. If
-None, uses a heuristic based on the number of cells.</p></li>
-<li><p><strong>do_combat</strong> – If True and <cite>batch</cite> is not None, performs batch correction
-using ComBat.</p></li>
-<li><p><strong>batch</strong> – The batch variable(s) to use for batch correction. If None, no
-batch correction is performed.</p></li>
-<li><p><strong>batch_method</strong> – The batch correction method to use. Can be “harmony” or
-“bbknn”.</p></li>
-<li><p><strong>random_state</strong> – The random seed to use for reproducibility.</p></li>
-<li><p><strong>clustering_resolution</strong> – The clustering resolution(s) to use for Leiden
-clustering.</p></li>
-<li><p><strong>use_gpu</strong> – If True, uses the GPU for some computations. If “all”, uses the
-GPU for all computations.</p></li>
-<li><p><strong>use_hvg</strong> – The list of highly variable genes to use for normalization and
-PCA. If None, uses the default Seurat v3 HVG selection.</p></li>
-<li><p><strong>filter_kw</strong> – Additional keyword arguments to pass to the
-<cite>filter_qc_outlier_legacy</cite> function.</p></li>
-<li><p><strong>hvg_kw</strong> – Additional keyword arguments to pass to the <cite>hvg</cite> function.</p></li>
-<li><p><strong>rgs_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.regress_out</cite>
-function.</p></li>
-<li><p><strong>pca_kw</strong> – Additional keyword arguments to pass to the <cite>pca</cite> function.</p></li>
-<li><p><strong>nb_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.neighbors</cite>
-function.</p></li>
-<li><p><strong>umap_kw</strong> – Additional keyword arguments to pass to the <cite>umap</cite> function.</p></li>
-<li><p><strong>hm_kw</strong> – Additional keyword arguments to pass to the <cite>run_harmony</cite>
-function.</p></li>
-<li><p><strong>bk_kw</strong> – Additional keyword arguments to pass to the <cite>run_bbknn</cite> function.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The preprocessed AnnData object.</p>
-</dd>
-</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sctk</span> <span class="kn">import</span> <span class="n">fit_gaussian</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span><span class="p">,</span> <span class="n">gmm</span> <span class="o">=</span> <span class="n">fit_gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
