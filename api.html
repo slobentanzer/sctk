@@ -114,12 +114,12 @@ variable indicating which cells passed the filters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ad</strong> – AnnData object to filter cells in.</p></li>
-<li><p><strong>min_count</strong> – Minimum number of counts per cell to retain. Default is 250.</p></li>
-<li><p><strong>min_gene</strong> – Minimum number of genes per cell to retain. Default is 50.</p></li>
-<li><p><strong>subset</strong> – Whether to return a subset of the original AnnData object
+<li><p><strong>ad</strong> (<em>anndata.AnnData</em>) – AnnData object to filter cells in.</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – Minimum number of counts per cell to retain. Default is 250.</p></li>
+<li><p><strong>min_gene</strong> (<em>int</em>) – Minimum number of genes per cell to retain. Default is 50.</p></li>
+<li><p><strong>subset</strong> (<em>bool</em>) – Whether to return a subset of the original AnnData object
 containing only the passing cells. Default is True.</p></li>
-<li><p><strong>filter_kw</strong> – Dictionary of keyword arguments to pass to the
+<li><p><strong>filter_kw</strong> (<em>dict</em>) – Dictionary of keyword arguments to pass to the
 <cite>simple_default_pipeline</cite> function. Default is a set of default filter
 parameters.</p></li>
 </ul>
@@ -128,6 +128,9 @@ parameters.</p></li>
 <dd class="field-even"><p>If <cite>subset</cite> is True, a new AnnData object containing only the passing
 cells. Otherwise, the original AnnData object with a new categorical
 variable indicating which cells passed the filters.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sctk._pipeline.QcLowPassError" title="sctk._pipeline.QcLowPassError"><strong>QcLowPassError</strong></a> – If dataset does not pass minimum specifications.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -151,10 +154,10 @@ as new categorical variables.</p>
 <li><p><strong>start_index</strong> – Index to start numbering new categorical variables from.</p></li>
 <li><p><strong>min_res</strong> – Minimum clustering resolution to use.</p></li>
 <li><p><strong>max_res</strong> – Maximum clustering resolution to use.</p></li>
-<li><p><strong>leiden_kw</strong> – Additional keyword arguments to pass to the <cite>leiden</cite></p></li>
-<li><p><strong>function.</strong> (<em>filter_marker_stats</em>) – </p></li>
-<li><p><strong>marker_kw</strong> – Additional keyword arguments to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>leiden_kw</strong> – Additional keyword arguments to pass to the <cite>leiden</cite>
+function.</p></li>
+<li><p><strong>marker_kw</strong> – Additional keyword arguments to pass to the
+<cite>filter_marker_stats</cite> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -172,14 +175,14 @@ modified in-place.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> – AnnData object to calculate QC metrics for.</p></li>
-<li><p><strong>flags</strong> – Dictionary of QC flags and regular expression patterns to match</p></li>
-<li><p><strong>against.</strong> (<em>gene names</em>) – </p></li>
+<li><p><strong>flags</strong> – Dictionary of QC flags and regular expression patterns to match
+gene names against.</p></li>
 <li><p><strong>extra_flags</strong> – Additional QC flags and patterns to add to <cite>flags</cite>.</p></li>
-<li><p><strong>flag_only</strong> – If True, only calculate QC flags and do not calculate other</p></li>
-<li><p><strong>metrics.</strong> – </p></li>
+<li><p><strong>flag_only</strong> – If True, only calculate QC flags and do not calculate other
+metrics.</p></li>
 <li><p><strong>suffix</strong> – Suffix to append to QC metric names.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to</p></li>
-<li><p><strong>*`scanpy.pp.calculate_qc_metrics`.</strong> – </p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to
+<a href="#id1"><span class="problematic" id="id2">*</span></a><cite>scanpy.pp.calculate_qc_metrics</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -212,25 +215,21 @@ metric names and their corresponding parameters.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> – AnnData object to filter cells from.</p></li>
-<li><p><strong>metrics</strong> – Optional list/tuple of metric names or dictionary of metric</p></li>
-<li><p><strong>provided</strong> (<em>names and their corresponding parameters. If not</em>) – </p></li>
-<li><p><strong>function</strong> (<em>the</em>) – </p></li>
-<li><p><strong>explanation</strong> (<em>uses a set</em><em> of </em><em>default metrics. For defaults and an</em>) – </p></li>
-<li><p><strong>please</strong> – </p></li>
-<li><p><strong>notebook.</strong> (<em>refer to the QC workflow demo</em>) – </p></li>
+<li><p><strong>metrics</strong> – Optional list/tuple of metric names or dictionary of metric
+names and their corresponding parameters. If not provided, the function
+uses a set of default metrics. For defaults and an explanation, please
+refer to the QC workflow demo notebook.</p></li>
 <li><p><strong>cell_qc_key</strong> – Obs column in the object to store the per-cell QC calls in.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the</p></li>
-<li><p><strong>function.</strong> (<em>*`fit_gaussian`</em>) – </p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
+<a href="#id3"><span class="problematic" id="id4">*</span></a><cite>fit_gaussian</cite> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ValueError</strong> – If <cite>metrics</cite> is not a list/tuple of metric names or a</p></li>
-<li><p><strong>dictionary</strong><strong> of </strong><strong>metric names and their corresponding parameters.</strong> – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>ValueError</strong> – If <cite>metrics</cite> is not a list/tuple of metric names or a
+    dictionary of metric names and their corresponding parameters.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -253,12 +252,12 @@ QC filter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ad</strong> – AnnData object to find good QC clusters in. Needs qc_cluster</p></li>
-<li><p><strong>obs.</strong> (<em>present in</em>) – </p></li>
-<li><p><strong>threshold</strong> – Clusters featuring at least this fraction of good QC cells</p></li>
-<li><p><strong>clusters.</strong> (<em>will be deemed good QC</em>) – </p></li>
-<li><p><strong>cell_qc_key</strong> – Key to use to retrieve per-cell QC calls from obs in the</p></li>
-<li><p><strong>AnnData.</strong> – </p></li>
+<li><p><strong>ad</strong> – AnnData object to find good QC clusters in. Needs qc_cluster
+present in obs.</p></li>
+<li><p><strong>threshold</strong> – Clusters featuring at least this fraction of good QC cells
+will be deemed good QC clusters.</p></li>
+<li><p><strong>cell_qc_key</strong> – Key to use to retrieve per-cell QC calls from obs in the
+AnnData.</p></li>
 <li><p><strong>key_added</strong> – Key to use for storing the results in the AnnData obs object.</p></li>
 </ul>
 </dd>
@@ -295,10 +294,10 @@ as new categorical variables.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> – AnnData object to cross-map annotations in.</p></li>
-<li><p><strong>dataset</strong> – Name of the categorical variable to group cells by. Default is</p></li>
-<li><p><strong>&quot;dataset&quot;.</strong> – </p></li>
-<li><p><strong>annotation</strong> – Name of the categorical variable to cross-map. Default is</p></li>
-<li><p><strong>&quot;annot&quot;.</strong> – </p></li>
+<li><p><strong>dataset</strong> – Name of the categorical variable to group cells by. Default is
+“dataset”.</p></li>
+<li><p><strong>annotation</strong> – Name of the categorical variable to cross-map. Default is
+“annot”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -324,35 +323,35 @@ function.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> – AnnData object to apply the pipeline to.</p></li>
-<li><p><strong>qc_only</strong> – If True, only perform quality control and skip the rest of the</p></li>
-<li><p><strong>pipeline.</strong> – </p></li>
+<li><p><strong>qc_only</strong> – If True, only perform quality control and skip the rest of the
+pipeline.</p></li>
 <li><p><strong>plot</strong> – If True, generate plots of the pipeline results.</p></li>
 <li><p><strong>batch</strong> – Categorical variable to correct for batch effects.</p></li>
-<li><p><strong>filter_params</strong> – Dictionary of filtering parameters to pass to the</p></li>
-<li><p><strong>functions.</strong> (<em>sc.pp.filter_cells and sc.pp.filter_genes</em>) – </p></li>
-<li><p><strong>norm_params</strong> – Dictionary of normalization parameters to pass to the</p></li>
-<li><p><strong>function.</strong> (<em>fdg</em>) – </p></li>
-<li><p><strong>combat_args</strong> – Dictionary of batch correction parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>hvg_params</strong> – Dictionary of highly variable gene selection parameters to</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>scale_params</strong> – Dictionary of scaling parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>filter_params</strong> – Dictionary of filtering parameters to pass to the
+<cite>sc.pp.filter_cells</cite> and <cite>sc.pp.filter_genes</cite> functions.</p></li>
+<li><p><strong>norm_params</strong> – Dictionary of normalization parameters to pass to the
+<cite>sc.pp.normalize_total</cite> function.</p></li>
+<li><p><strong>combat_args</strong> – Dictionary of batch correction parameters to pass to the
+<cite>sc.pp.combat</cite> function.</p></li>
+<li><p><strong>hvg_params</strong> – Dictionary of highly variable gene selection parameters to
+pass to the <cite>hvg</cite> function.</p></li>
+<li><p><strong>scale_params</strong> – Dictionary of scaling parameters to pass to the
+<cite>sc.pp.scale</cite> function.</p></li>
 <li><p><strong>pca_params</strong> – Dictionary of PCA parameters to pass to the <cite>pca</cite> function.</p></li>
-<li><p><strong>harmony_params</strong> – Dictionary of Harmony parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>nb_params</strong> – Dictionary of nearest neighbor parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>umap_params</strong> – Dictionary of UMAP parameters to pass to the <cite>umap</cite></p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>tsne_params</strong> – Dictionary of t-SNE parameters to pass to the <cite>tsne</cite></p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>diffmap_params</strong> – Dictionary of diffusion map parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>leiden_params</strong> – Dictionary of Leiden clustering parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
-<li><p><strong>fdg_params</strong> – Dictionary of force-directed graph parameters to pass to the</p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>harmony_params</strong> – Dictionary of Harmony parameters to pass to the
+<cite>run_harmony</cite> function.</p></li>
+<li><p><strong>nb_params</strong> – Dictionary of nearest neighbor parameters to pass to the
+<cite>neighbors</cite> function.</p></li>
+<li><p><strong>umap_params</strong> – Dictionary of UMAP parameters to pass to the <cite>umap</cite>
+function.</p></li>
+<li><p><strong>tsne_params</strong> – Dictionary of t-SNE parameters to pass to the <cite>tsne</cite>
+function.</p></li>
+<li><p><strong>diffmap_params</strong> – Dictionary of diffusion map parameters to pass to the
+<cite>diffmap</cite> function.</p></li>
+<li><p><strong>leiden_params</strong> – Dictionary of Leiden clustering parameters to pass to the
+<cite>leiden</cite> function.</p></li>
+<li><p><strong>fdg_params</strong> – Dictionary of force-directed graph parameters to pass to the
+<cite>fdg</cite> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -384,20 +383,18 @@ returns a boolean array indicating which cells pass the QC filter.</p>
 <li><p><strong>min_top50</strong> – Minimum percentage of reads mapping to the top 50 genes.</p></li>
 <li><p><strong>max_top50</strong> – Maximum percentage of reads mapping to the top 50 genes.</p></li>
 <li><p><strong>min_pass_rate</strong> – Minimum pass rate for the QC filter.</p></li>
-<li><p><strong>onesided</strong> – Whether to use a one-sided or two-sided threshold for count</p></li>
-<li><p><strong>metrics.</strong> (<em>and gene</em>) – </p></li>
-<li><p><strong>force</strong> – Whether to force the function to pass even if the pass rate is</p></li>
-<li><p><strong>threshold.</strong> (<em>below the minimum</em>) – </p></li>
+<li><p><strong>onesided</strong> – Whether to use a one-sided or two-sided threshold for count
+and gene metrics.</p></li>
+<li><p><strong>force</strong> – Whether to force the function to pass even if the pass rate is
+below the minimum threshold.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Boolean array indicating which cells pass the QC filter.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="#sctk._pipeline.QcLowPassError" title="sctk._pipeline.QcLowPassError"><strong>QcLowPassError</strong></a> – If the pass rate for a given metric is below the minimum</p></li>
-<li><p><strong>threshold and force is False.</strong> – </p></li>
-</ul>
+<dd class="field-odd"><p><a class="reference internal" href="#sctk._pipeline.QcLowPassError" title="sctk._pipeline.QcLowPassError"><strong>QcLowPassError</strong></a> – If the pass rate for a given metric is below the minimum
+    threshold and force is False.</p>
 </dd>
 </dl>
 <dl>
@@ -430,16 +427,14 @@ mixture model.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – 1D numpy array to fit a Gaussian mixture model to.</p></li>
-<li><p><strong>n_components</strong> – Number of components to use for the Gaussian mixture model.</p></li>
-<li><p><strong>BIC.</strong> (<em>The best GMM will be selected based on</em>) – </p></li>
-<li><p><strong>threshold</strong> – Threshold value for determining the lower and upper bounds of</p></li>
-<li><p><strong>distribution.</strong> (<em>the fitted Gaussian</em>) – </p></li>
-<li><p><strong>xmin</strong> – Minimum value to use for the fitted Gaussian distribution. If not</p></li>
-<li><p><strong>provided</strong> – </p></li>
-<li><p><strong>x.</strong> (<em>this will be set to the maximum value of</em>) – </p></li>
-<li><p><strong>xmax</strong> – Maximum value to use for the fitted Gaussian distribution. If not</p></li>
-<li><p><strong>provided</strong> – </p></li>
-<li><p><strong>x.</strong> – </p></li>
+<li><p><strong>n_components</strong> – Number of components to use for the Gaussian mixture model.
+The best GMM will be selected based on BIC.</p></li>
+<li><p><strong>threshold</strong> – Threshold value for determining the lower and upper bounds of
+the fitted Gaussian distribution.</p></li>
+<li><p><strong>xmin</strong> – Minimum value to use for the fitted Gaussian distribution. If not
+provided, this will be set to the minimum value of <cite>x</cite>.</p></li>
+<li><p><strong>xmax</strong> – Maximum value to use for the fitted Gaussian distribution. If not
+provided, this will be set to the maximum value of <cite>x</cite>.</p></li>
 <li><p><strong>plot</strong> – If True, plot the fitted Gaussian distribution.</p></li>
 <li><p><strong>nbins</strong> – Number of bins to use for the distribution of <cite>x</cite>.</p></li>
 <li><p><strong>hist_bins</strong> – Number of bins to use for the histogram of <cite>x</cite> in the plot.</p></li>
@@ -475,34 +470,28 @@ construction, and UMAP embedding on the specified QC metrics.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ad</strong> – AnnData object to generate QC clusters for.</p></li>
-<li><p><strong>metrics</strong> – List of QC metrics to use for generating QC clusters. Must be</p></li>
-<li><p><strong>columns.</strong> (<em>present as obs</em>) – </p></li>
-<li><p><strong>aux_ad</strong> – Optional auxiliary AnnData object to use for generating QC</p></li>
-<li><p><strong>clusters</strong> – </p></li>
-<li><p><strong>if</strong> (<em>created by an earlier call</em><em> of </em><em>this function and returned</em>) – </p></li>
-<li><p><strong>for</strong> (<em>return_aux is set to True. Its neighbour graph will be used</em>) – </p></li>
-<li><p><strong>object.</strong> (<em>clustering and its UMAP will be transferred to the input</em>) – </p></li>
-<li><p><strong>n_pcs</strong> – Number of principal components to use for PCA. If not provided,</p></li>
-<li><p><strong>max</strong> (<em>this will be set to</em>) – </p></li>
-<li><p><strong>n_neighbors</strong> – Number of nearest neighbors to use for constructing the</p></li>
-<li><p><strong>provided</strong> (<em>nearest neighbor graph. If not</em>) – </p></li>
-<li><p><strong>min</strong><strong>(</strong><strong>max</strong><strong>(</strong><strong>5</strong> (<em>this will be set to</em>) – </p></li>
+<li><p><strong>metrics</strong> – List of QC metrics to use for generating QC clusters. Must be
+present as obs columns.</p></li>
+<li><p><strong>aux_ad</strong> – Optional auxiliary AnnData object to use for generating QC
+clusters, created by an earlier call of this function and returned if
+return_aux is set to True. Its neighbour graph will be used for
+clustering and its UMAP will be transferred to the input object.</p></li>
+<li><p><strong>n_pcs</strong> – Number of principal components to use for PCA. If not provided,
+this will be set to max(2, len(metrics) - 2).</p></li>
+<li><p><strong>n_neighbors</strong> – Number of nearest neighbors to use for constructing the
+nearest neighbor graph. If not provided, this will be set to min(max(5,
+int(ad.n_obs / 500)), 10).</p></li>
+<li><p><strong>res</strong> – Resolution parameter to use for the Leiden clustering algorithm.</p></li>
+<li><p><strong>return_aux</strong> – If True, return the auxiliary AnnData object used for
+generating QC clusters.</p></li>
 </ul>
 </dd>
-</dl>
-<p>:param :
-:param int:
-:type int: ad.n_obs / 500)), 10
-:param res: Resolution parameter to use for the Leiden clustering algorithm.
-:param return_aux: If True, return the auxiliary AnnData object used for
-:param generating QC clusters.:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>If <cite>return_aux</cite> is False, returns None. Otherwise, returns the auxiliary
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If <cite>return_aux</cite> is False, returns None. Otherwise, returns the auxiliary
 AnnData object used for generating QC clusters.</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>None.</strong> – </p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -527,8 +516,8 @@ to the specified minimum size.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batches</strong> – Pandas Series of batch IDs and their corresponding sizes.</p></li>
-<li><p><strong>min_size</strong> – Minimum size of batches to include in the output list. Default</p></li>
-<li><p><strong>10.</strong> (<em>is</em>) – </p></li>
+<li><p><strong>min_size</strong> – Minimum size of batches to include in the output list. Default
+is 10.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -552,24 +541,21 @@ downstream analysis, such as clustering and visualization.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ads</strong> – List of AnnData objects to integrate.</p></li>
-<li><p><strong>ad_prefices</strong> – List of prefixes to use for the batch categories in the</p></li>
-<li><p><strong>provided</strong> (<em>If not</em>) – </p></li>
-<li><p><strong>0.</strong> (<em>uses integers starting from</em>) – </p></li>
-<li><p><strong>ad_types</strong> – List of types to use for each AnnData object. If not provided,</p></li>
-<li><p><strong>object.</strong> (<em>attempts to automatically determine the type</em><em> of </em><em>each</em>) – </p></li>
-<li><p><strong>annotations</strong> – List of annotation columns to use for each AnnData object.</p></li>
-<li><p><strong>provided</strong> – </p></li>
-<li><p><strong>column.</strong> (<em>uses the default &quot;batch&quot;</em>) – </p></li>
-<li><p><strong>batches</strong> – List of batch columns to use for each AnnData object. If not</p></li>
-<li><p><strong>provided</strong> – </p></li>
-<li><p><strong>column.</strong> – </p></li>
-<li><p><strong>join</strong> – Method to use for joining the AnnData objects. Can be “inner”</p></li>
-<li><p><strong>&quot;outer&quot;.</strong> (<em>(</em><em>default</em><em>) </em><em>or</em>) – </p></li>
+<li><p><strong>ad_prefices</strong> – List of prefixes to use for the batch categories in the
+concatenated object. If not provided, uses integers starting from 0.</p></li>
+<li><p><strong>ad_types</strong> – List of types to use for each AnnData object. If not provided,
+attempts to automatically determine the type of each object.</p></li>
+<li><p><strong>annotations</strong> – List of annotation columns to use for each AnnData object.
+If not provided, uses the default “annot” column.</p></li>
+<li><p><strong>batches</strong> – List of batch columns to use for each AnnData object. If not
+provided, uses the default “batch” column.</p></li>
+<li><p><strong>join</strong> – Method to use for joining the AnnData objects. Can be “inner”
+(default) or “outer”.</p></li>
 <li><p><strong>n_hvg</strong> – Number of highly variable genes to select for each batch.</p></li>
-<li><p><strong>pool_only</strong> – If True, returns the concatenated object without performing</p></li>
-<li><p><strong>analysis.</strong> (<em>downstream</em>) – </p></li>
-<li><p><strong>normalize</strong> – If True, normalizes the expression data in each AnnData</p></li>
-<li><p><strong>concatenating.</strong> (<em>object before</em>) – </p></li>
+<li><p><strong>pool_only</strong> – If True, returns the concatenated object without performing
+downstream analysis.</p></li>
+<li><p><strong>normalize</strong> – If True, normalizes the expression data in each AnnData
+object before concatenating.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -594,11 +580,11 @@ added to the original AnnData object as a new categorical variable.</p>
 <li><p><strong>groupby</strong> – Categorical variable to group cells by.</p></li>
 <li><p><strong>groups</strong> – List of group names to recluster.</p></li>
 <li><p><strong>res</strong> – Clustering resolution to use for Leiden clustering.</p></li>
-<li><p><strong>new_key</strong> – Name of the new categorical variable to add to the AnnData</p></li>
-<li><p><strong>object.</strong> – </p></li>
+<li><p><strong>new_key</strong> – Name of the new categorical variable to add to the AnnData
+object.</p></li>
 <li><p><strong>ad_aux</strong> – Optional preprocessed AnnData object to use for clustering.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the</p></li>
-<li><p><strong>function.</strong> (<em>*`simple_default_pipeline`</em>) – </p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
+<a href="#id5"><span class="problematic" id="id6">*</span></a><cite>simple_default_pipeline</cite> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -629,16 +615,14 @@ are [“leiden_bk_r0_1”, “leiden_bk_r0_3”, “leiden_bk_r0_5”, “leiden
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ad</strong> – AnnData object to save.</p></li>
 <li><p><strong>out_prefix</strong> – Prefix for the output file name. If None, no file is saved.</p></li>
-<li><p><strong>batch_method</strong> – Batch correction method used to process the AnnData</p></li>
-<li><p><strong>&quot;harmony&quot;</strong> (<em>object. Can be</em>) – </p></li>
-<li><p><strong>&quot;bbknn&quot;</strong> – </p></li>
-<li><p><strong>None.</strong> (<em>or</em>) – </p></li>
-<li><p><strong>obs_keys</strong> – List of keys to remove from the <cite>obs</cite> attribute of the AnnData</p></li>
-<li><p><strong>object.</strong> (<em>AnnData</em>) – </p></li>
-<li><p><strong>obsm_keys</strong> – List of keys to remove from the <cite>obsm</cite> attribute of the</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>uns_keys</strong> – List of keys to remove from the <cite>uns</cite> attribute of the AnnData</p></li>
-<li><p><strong>object.</strong> – </p></li>
+<li><p><strong>batch_method</strong> – Batch correction method used to process the AnnData
+object. Can be “harmony”, “bbknn”, or None.</p></li>
+<li><p><strong>obs_keys</strong> – List of keys to remove from the <cite>obs</cite> attribute of the AnnData
+object.</p></li>
+<li><p><strong>obsm_keys</strong> – List of keys to remove from the <cite>obsm</cite> attribute of the
+AnnData object.</p></li>
+<li><p><strong>uns_keys</strong> – List of keys to remove from the <cite>uns</cite> attribute of the AnnData
+object.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -655,52 +639,50 @@ are [“leiden_bk_r0_1”, “leiden_bk_r0_3”, “leiden_bk_r0_5”, “leiden
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>adata</strong> – AnnData object to preprocess.</p></li>
-<li><p><strong>filter_only</strong> – If True, only performs filtering steps and returns the</p></li>
-<li><p><strong>object.</strong> (<em>processed AnnData</em>) – </p></li>
-<li><p><strong>post_filter_only</strong> – If True, only performs post-filtering steps and</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>norm_only</strong> – If True, only performs normalization steps and returns the</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>post_norm_only</strong> – If True, only performs post-normalization steps and</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>hvg_only</strong> – If True, only performs highly variable gene selection and</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>post_hvg_only</strong> – If True, only performs post-highly variable gene</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>pca_only</strong> – If True, only performs PCA and returns the PCA-transformed</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>post_pca_only</strong> – If True, only performs post-PCA steps and returns the</p></li>
-<li><p><strong>object.</strong> – </p></li>
-<li><p><strong>do_clustering</strong> – If True, performs clustering and updates the AnnData</p></li>
-<li><p><strong>results.</strong> (<em>object with the clustering</em>) – </p></li>
-<li><p><strong>zero_center</strong> – If True, centers the data to zero mean before scaling. If</p></li>
-<li><p><strong>None</strong> (<em>PCA. If</em>) – </p></li>
-<li><p><strong>cells.</strong> (<em>uses a heuristic based on the number of</em>) – </p></li>
-<li><p><strong>do_combat</strong> – If True and <cite>batch</cite> is not None, performs batch correction</p></li>
-<li><p><strong>ComBat.</strong> (<em>using</em>) – </p></li>
-<li><p><strong>batch</strong> – The batch variable(s) to use for batch correction. If None, no</p></li>
-<li><p><strong>performed.</strong> (<em>batch correction is</em>) – </p></li>
-<li><p><strong>batch_method</strong> – The batch correction method to use. Can be “harmony” or</p></li>
-<li><p><strong>&quot;bbknn&quot;.</strong> – </p></li>
+<li><p><strong>filter_only</strong> – If True, only performs filtering steps and returns the
+filtered AnnData object.</p></li>
+<li><p><strong>post_filter_only</strong> – If True, only performs post-filtering steps and
+returns the processed AnnData object.</p></li>
+<li><p><strong>norm_only</strong> – If True, only performs normalization steps and returns the
+normalized AnnData object.</p></li>
+<li><p><strong>post_norm_only</strong> – If True, only performs post-normalization steps and
+returns the processed AnnData object.</p></li>
+<li><p><strong>hvg_only</strong> – If True, only performs highly variable gene selection and
+returns the selected AnnData object.</p></li>
+<li><p><strong>post_hvg_only</strong> – If True, only performs post-highly variable gene
+selection steps and returns the processed AnnData object.</p></li>
+<li><p><strong>pca_only</strong> – If True, only performs PCA and returns the PCA-transformed
+AnnData object.</p></li>
+<li><p><strong>post_pca_only</strong> – If True, only performs post-PCA steps and returns the
+processed AnnData object.</p></li>
+<li><p><strong>do_clustering</strong> – If True, performs clustering and updates the AnnData
+object with the clustering results.</p></li>
+<li><p><strong>zero_center</strong> – If True, centers the data to zero mean before scaling. If
+None, uses a heuristic based on the number of cells.</p></li>
+<li><p><strong>do_combat</strong> – If True and <cite>batch</cite> is not None, performs batch correction
+using ComBat.</p></li>
+<li><p><strong>batch</strong> – The batch variable(s) to use for batch correction. If None, no
+batch correction is performed.</p></li>
+<li><p><strong>batch_method</strong> – The batch correction method to use. Can be “harmony” or
+“bbknn”.</p></li>
 <li><p><strong>random_state</strong> – The random seed to use for reproducibility.</p></li>
-<li><p><strong>clustering_resolution</strong> – The clustering resolution(s) to use for Leiden</p></li>
-<li><p><strong>clustering.</strong> – </p></li>
-<li><p><strong>use_gpu</strong> – If True, uses the GPU for some computations. If “all”, uses the</p></li>
-<li><p><strong>computations.</strong> (<em>GPU for all</em>) – </p></li>
-<li><p><strong>use_hvg</strong> – The list of highly variable genes to use for normalization and</p></li>
-<li><p><strong>None</strong> – </p></li>
-<li><p><strong>selection.</strong> (<em>uses the default Seurat v3 HVG</em>) – </p></li>
-<li><p><strong>filter_kw</strong> – Additional keyword arguments to pass to the</p></li>
-<li><p><strong>function.</strong> (<em>filter_qc_outlier_legacy</em>) – </p></li>
+<li><p><strong>clustering_resolution</strong> – The clustering resolution(s) to use for Leiden
+clustering.</p></li>
+<li><p><strong>use_gpu</strong> – If True, uses the GPU for some computations. If “all”, uses the
+GPU for all computations.</p></li>
+<li><p><strong>use_hvg</strong> – The list of highly variable genes to use for normalization and
+PCA. If None, uses the default Seurat v3 HVG selection.</p></li>
+<li><p><strong>filter_kw</strong> – Additional keyword arguments to pass to the
+<cite>filter_qc_outlier_legacy</cite> function.</p></li>
 <li><p><strong>hvg_kw</strong> – Additional keyword arguments to pass to the <cite>hvg</cite> function.</p></li>
-<li><p><strong>rgs_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.regress_out</cite></p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>rgs_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.regress_out</cite>
+function.</p></li>
 <li><p><strong>pca_kw</strong> – Additional keyword arguments to pass to the <cite>pca</cite> function.</p></li>
-<li><p><strong>nb_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.neighbors</cite></p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>nb_kw</strong> – Additional keyword arguments to pass to the <cite>sc.pp.neighbors</cite>
+function.</p></li>
 <li><p><strong>umap_kw</strong> – Additional keyword arguments to pass to the <cite>umap</cite> function.</p></li>
-<li><p><strong>hm_kw</strong> – Additional keyword arguments to pass to the <cite>run_harmony</cite></p></li>
-<li><p><strong>function.</strong> – </p></li>
+<li><p><strong>hm_kw</strong> – Additional keyword arguments to pass to the <cite>run_harmony</cite>
+function.</p></li>
 <li><p><strong>bk_kw</strong> – Additional keyword arguments to pass to the <cite>run_bbknn</cite> function.</p></li>
 </ul>
 </dd>
