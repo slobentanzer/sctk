@@ -97,6 +97,7 @@
 <dt class="sig sig-object py" id="sctk._pipeline.QcLowPassError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sctk._pipeline.</span></span><span class="sig-name descname"><span class="pre">QcLowPassError</span></span><a class="headerlink" href="#sctk._pipeline.QcLowPassError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>Error raised when a QC minimum requirements are not met for a dataset.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -120,8 +121,8 @@ variable indicating which cells passed the filters.</p>
 <li><p><strong>subset</strong> (<em>bool</em>) – Whether to return a subset of the original AnnData object
 containing only the passing cells. Default is True.</p></li>
 <li><p><strong>filter_kw</strong> (<em>dict</em>) – Dictionary of keyword arguments to pass to the
-<cite>simple_default_pipeline</cite> function. Default is a set of default filter
-parameters.</p></li>
+<a class="reference internal" href="#sctk._pipeline.simple_default_pipeline" title="sctk._pipeline.simple_default_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">simple_default_pipeline()</span></code></a> function. Default is a set of
+default filter parameters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -182,7 +183,7 @@ gene names against.</p></li>
 metrics.</p></li>
 <li><p><strong>suffix</strong> – Suffix to append to QC metric names.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to
-<a href="#id1"><span class="problematic" id="id2">*</span></a><cite>scanpy.pp.calculate_qc_metrics</cite>.</p></li>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">scanpy.pp.calculate_qc_metrics()</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -221,7 +222,7 @@ uses a set of default metrics. For defaults and an explanation, please
 refer to the QC workflow demo notebook.</p></li>
 <li><p><strong>cell_qc_key</strong> – Obs column in the object to store the per-cell QC calls in.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
-<a href="#id3"><span class="problematic" id="id4">*</span></a><cite>fit_gaussian</cite> function.</p></li>
+<a class="reference internal" href="#sctk._pipeline.fit_gaussian" title="sctk._pipeline.fit_gaussian"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit_gaussian()</span></code></a> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -584,7 +585,7 @@ added to the original AnnData object as a new categorical variable.</p>
 object.</p></li>
 <li><p><strong>ad_aux</strong> – Optional preprocessed AnnData object to use for clustering.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to the
-<a href="#id5"><span class="problematic" id="id6">*</span></a><cite>simple_default_pipeline</cite> function.</p></li>
+<a class="reference internal" href="#sctk._pipeline.simple_default_pipeline" title="sctk._pipeline.simple_default_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">simple_default_pipeline()</span></code></a> function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
