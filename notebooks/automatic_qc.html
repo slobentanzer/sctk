@@ -6,12 +6,12 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="notebooks/automatic_qc.html" />
 <meta property="og:site_name" content="sctk" />
-<meta property="og:description" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: - sctk.calculate_qc() computes QC measures - sctk.generate_qc_clusters() creates QC-space clusters of ..." />
+<meta property="og:description" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: sctk.calculate_qc() computes QC measures, sctk.generate_qc_clusters() creates QC-space clusters of cel..." />
 <meta property="og:image:width" content="1146" />
 <meta property="og:image:height" content="600" />
-<meta property="og:image" content="/_images/social_previews/summary_notebooks_automatic_qc_3194c351.png" />
-<meta property="og:image:alt" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: - sctk.calculate_qc() computes QC measures - sctk.generate_qc_..." />
-<meta name="description" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: - sctk.calculate_qc() computes QC measures - sctk.generate_qc_clusters() creates QC-space clusters of ..." />
+<meta property="og:image" content="/_images/social_previews/summary_notebooks_automatic_qc_fc5547dc.png" />
+<meta property="og:image:alt" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: sctk.calculate_qc() computes QC measures, sctk.generate_qc_clu..." />
+<meta name="description" content="This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: sctk.calculate_qc() computes QC measures, sctk.generate_qc_clusters() creates QC-space clusters of cel..." />
 <meta name="twitter:card" content="summary_large_image" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -382,7 +382,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps: - <code class="docutils literal notranslate"><span class="pre">sctk.calculate_qc()</span></code> computes QC measures - <code class="docutils literal notranslate"><span class="pre">sctk.generate_qc_clusters()</span></code> creates QC-space clusters of cells - <code class="docutils literal notranslate"><span class="pre">sctk.cellwise_qc()</span></code> performs cell-level QC calling - <code class="docutils literal notranslate"><span class="pre">sctk.clusterwise_qc()</span></code> computes cluster-wide statistics of cell quality</p>
+<p>This notebook will show how to apply SCTK’s automatic QC workflow. The process has four steps:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sctk.calculate_qc()</span></code> computes QC measures</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sctk.generate_qc_clusters()</span></code> creates QC-space clusters of cells</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sctk.cellwise_qc()</span></code> performs cell-level QC calling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sctk.clusterwise_qc()</span></code> computes cluster-wide statistics of cell quality</p></li>
+</ul>
 <p>Let’s use Scanpy’s PBMC object as input.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -552,9 +558,14 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 }
 </pre></div>
 </div>
-<p>The variable is a dictionary, with keys named after computed QC metrics present in the <code class="docutils literal notranslate"><span class="pre">.obs</span></code> of the input object. Values absent from <code class="docutils literal notranslate"><span class="pre">.obs</span></code> will get skipped (so in our case, <code class="docutils literal notranslate"><span class="pre">percent_soup</span></code>, <code class="docutils literal notranslate"><span class="pre">percent_spliced</span></code> and <code class="docutils literal notranslate"><span class="pre">scrublet_score</span></code> all got bypassed when we ran the function). The value is a five-element tuple controlling the input to the GMM and subsequent filtering behaviour: - the minimum value to use in modelling the distribution; values lower than this will be skipped; set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
-to use the encountered minimum - the maximum value to use in modelling the distribution; values higher than this will be skipped; set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to use the encountered maximum - <code class="docutils literal notranslate"><span class="pre">&quot;log&quot;</span></code> to log-transform the QC metric values prior to modelling, <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> to keep the values un-transformed - <code class="docutils literal notranslate"><span class="pre">&quot;min_only&quot;</span></code> to only perform filtering of low values, <code class="docutils literal notranslate"><span class="pre">&quot;max_only&quot;</span></code> to only perform filtering of high values, <code class="docutils literal notranslate"><span class="pre">&quot;both&quot;</span></code> to perform filtering from both sides - the minimum proportion of cells that need
-to pass the filtering on this feature; if the fraction is too low, the GMM is discarded and the QC values are thresholded based on the provided minimum/maximum</p>
+<p>The variable is a dictionary, with keys named after computed QC metrics present in the <code class="docutils literal notranslate"><span class="pre">.obs</span></code> of the input object. Values absent from <code class="docutils literal notranslate"><span class="pre">.obs</span></code> will get skipped (so in our case, <code class="docutils literal notranslate"><span class="pre">percent_soup</span></code>, <code class="docutils literal notranslate"><span class="pre">percent_spliced</span></code> and <code class="docutils literal notranslate"><span class="pre">scrublet_score</span></code> all got bypassed when we ran the function). The value is a five-element tuple controlling the input to the GMM and subsequent filtering behaviour:</p>
+<ul class="simple">
+<li><p>the minimum value to use in modelling the distribution; values lower than this will be skipped; set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to use the encountered minimum</p></li>
+<li><p>the maximum value to use in modelling the distribution; values higher than this will be skipped; set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to use the encountered maximum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;log&quot;</span></code> to log-transform the QC metric values prior to modelling, <code class="docutils literal notranslate"><span class="pre">&quot;linear&quot;</span></code> to keep the values un-transformed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;min_only&quot;</span></code> to only perform filtering of low values, <code class="docutils literal notranslate"><span class="pre">&quot;max_only&quot;</span></code> to only perform filtering of high values, <code class="docutils literal notranslate"><span class="pre">&quot;both&quot;</span></code> to perform filtering from both sides</p></li>
+<li><p>the minimum proportion of cells that need to pass the filtering on this feature; if the fraction is too low, the GMM is discarded and the QC values are thresholded based on the provided minimum/maximum</p></li>
+</ul>
 <p>As the function goes along, it prints out the actual QC metric value ranges it used in filtering, and how many cells fall within that range. For example, notice how we specified a 100-gene minimum for the modelling, but the proposed data-driven cutoff ends up being 320.</p>
 <p>Let’s try out modifying the <code class="docutils literal notranslate"><span class="pre">metrics</span></code> values by removing the three measures absent from our object, and increasing the <code class="docutils literal notranslate"><span class="pre">n_genes</span></code> minimum to 500.</p>
 <div class="nbinput docutils container">
